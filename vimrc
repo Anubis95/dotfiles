@@ -4,7 +4,7 @@
 set nocompatible                  " Must come first because it changes other options.
 
 syntax enable                     " Turn on syntax highlighting.
-filetype plugin indent on         " Turn on file type detection.
+	filetype plugin indent on         " Turn on file type detection.
 
 runtime macros/matchit.vim        " Load the matchit plugin.
 
@@ -76,10 +76,22 @@ filetype off                  " required
  call vundle#begin()
 " " alternatively, pass a path where Vundle should install plugins
 " "call vundle#begin('~/some/path/here')
-"
+
+
 " " let Vundle manage Vundle, required
  Plugin 'VundleVim/Vundle.vim'
-"
+" Install Nerdtree
+ Plugin 'scrooloose/nerdtree'
+" Install Tagbar
+ Plugin 'Tagbar'
+" Install Syntastic for syntax correction
+ Plugin 'vim-syntastic/syntastic'
+" Install vim-airline for status/tab line
+ Plugin 'vim-airline/vim-airline'
+" Install airline theme manager
+ Plugin 'vim-airline/vim-airline-themes'
+
+
 " " The following are examples of different formats supported.
 " " Keep Plugin commands between vundle#begin/end.
 " " plugin on GitHub repo
@@ -128,4 +140,28 @@ filetype off                  " required
 " Automatic fold settings for specific files. Uncomment to use.
 " autocmd FileType ruby setlocal foldmethod=syntax
 " autocmd FileType css  setlocal foldmethod=indent shiftwidth=2 tabstop=2
+
+" Map NERDTree to ctrl-n
+map <C-n> :NERDTreeToggle<CR>
+" Exit vim if NERDTree is the only remaining window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Map Tagbar to F8
+nmap <F8> :TagbarToggle<CR>
+" Open Tagbar only for support file types
+autocmd VimEnter * nested :call tagbar#autoopen(1)
+" Open Tagbar for viewports
+autocmd FileType * nested :call tagbar#autoopen(0)
+
+" Required for syntastic
+" execute pathogen#infect()
+" Default syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
