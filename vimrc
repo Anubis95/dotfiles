@@ -1,6 +1,8 @@
 " Example Vim configuration.
 " Copy or symlink to ~/.vimrc or ~/_vimrc.
 
+set encoding=utf-8
+
 set nocompatible                  " Must come first because it changes other options.
 
 syntax enable                     " Turn on syntax highlighting.
@@ -90,7 +92,14 @@ filetype off                  " required
  Plugin 'vim-airline/vim-airline'
 " Install airline theme manager
  Plugin 'vim-airline/vim-airline-themes'
-
+" Install vim-hug-neovim-rpc needed for neovim and deoplete
+ Plugin 'roxma/vim-hug-neovim-rpc'
+" Install nvim-yarp needed for vim-hug-neovim-rpc 
+ Plugin 'roxma/nvim-yarp'
+" Install deoplete for keyword completion in the current buffer
+ Plugin 'Shougo/deoplete.nvim'
+" Install VimDevIcons
+ Plugin 'ryanoasis/vim-devicons'
 
 " " The following are examples of different formats supported.
 " " Keep Plugin commands between vundle#begin/end.
@@ -164,4 +173,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
