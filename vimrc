@@ -93,13 +93,26 @@ filetype off                  " required
 " Install airline theme manager
  Plugin 'vim-airline/vim-airline-themes'
 " Install vim-hug-neovim-rpc needed for neovim and deoplete
- Plugin 'roxma/vim-hug-neovim-rpc'
+" Plugin 'roxma/vim-hug-neovim-rpc'
+" Test Javacomplete for Java Completion 
+ Plugin 'artur-shaik/vim-javacomplete2'
+" Test out eclim for Java development
+ Plugin 'ervandew/eclim'
+
 " Install nvim-yarp needed for vim-hug-neovim-rpc 
- Plugin 'roxma/nvim-yarp'
+" Plugin 'roxma/nvim-yarp'
 " Install deoplete for keyword completion in the current buffer
- Plugin 'Shougo/deoplete.nvim'
+" Plugin 'Shougo/deoplete.nvim'
 " Install VimDevIcons
  Plugin 'ryanoasis/vim-devicons'
+" Install Delimitmate
+ Plugin 'raimondi/delimitmate'
+" Install CTRLP
+ Plugin 'kien/ctrlp.vim'
+" Install Nerd Commenter
+ Plugin 'scrooloose/nerdcommenter'
+" Test out YouCompleteMe
+ Plugin 'valloric/youcompleteme'
 
 " " The following are examples of different formats supported.
 " " Keep Plugin commands between vundle#begin/end.
@@ -150,6 +163,18 @@ filetype off                  " required
 " autocmd FileType ruby setlocal foldmethod=syntax
 " autocmd FileType css  setlocal foldmethod=indent shiftwidth=2 tabstop=2
 
+" NerdCommenter settings
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
 " Map NERDTree to ctrl-n
 map <C-n> :NERDTreeToggle<CR>
 " Exit vim if NERDTree is the only remaining window
@@ -175,5 +200,49 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
+" For Javacomplete
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" To enable smart (trying to guess import option) inserting class imports with F4, add:
+" nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" To enable usual (will ask for import option) inserting class imports with F5, add:
+" nmap <F5> <Plug>(JavaComplete-Imports-Add)
+" imap <F5> <Plug>(JavaComplete-Imports-Add)
+" To add all missing imports with F6:
+" nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" To remove all unused imports with F7:
+" nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+" imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+" Default mappings:
+nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
+
+" Setup global config for youcompleteme
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
